@@ -22,6 +22,13 @@ export async function middleware(request: NextRequest) {
     if (!isAuthenticated || !isAdmin) {
       return NextResponse.redirect(new URL('/', request.url));
     }
+    
+    // For admin routes, ensure the response is not cached
+    const response = NextResponse.next();
+    response.headers.set('Cache-Control', 'no-store, max-age=0');
+    response.headers.set('Pragma', 'no-cache');
+    response.headers.set('Expires', '0');
+    return response;
   }
   
   return NextResponse.next();
@@ -30,6 +37,10 @@ export async function middleware(request: NextRequest) {
 // Configure the paths that should be matched by this middleware
 export const config = {
   matcher: [
+    '/admin',
+    '/admin/changes',
+    '/admin/products',
+    '/admin/categories',
     '/admin/:path*',
   ],
 };
