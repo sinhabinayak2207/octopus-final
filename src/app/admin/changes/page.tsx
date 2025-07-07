@@ -1,5 +1,8 @@
 "use client";
 
+// Make this page dynamic to handle authentication and admin access
+export const dynamic = "force-dynamic";
+
 import { useState, useEffect, useRef } from 'react';
 import AddProductForm from '@/components/admin/AddProductForm';
 import DeleteProductModal from '@/components/admin/DeleteProductModal';
